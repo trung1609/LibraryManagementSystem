@@ -41,33 +41,42 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public GenreDTO updateGenre(Long genreId, GenreDTO genre) {
-        return null;
+    public GenreDTO updateGenre(Long genreId, GenreDTO genre) throws GenreException {
+        Genre existingGenre = genreRepository.findById(genreId).orElseThrow(() -> new GenreException("Genre not found"));
+        genreMapper.updateEntityFromDto(genre, existingGenre);
+
+        Genre updatedGenre = genreRepository.save(existingGenre);
+        return genreMapper.toDto(updatedGenre);
     }
 
     @Override
-    public void deleteGenre(Long genreId) {
-
+    public void deleteGenre(Long genreId) throws GenreException {
+        Genre existingGenre = genreRepository.findById(genreId).orElseThrow(() -> new GenreException("Genre not found"));
+        existingGenre.setActive(false);
+        genreRepository.save(existingGenre);
     }
 
     @Override
     public void hardDeleteGenre(Long genreId) {
-
+        Genre existingGenre = genreRepository.findById(genreId).orElseThrow(() -> new RuntimeException("Genre not found"));
+        genreRepository.delete(existingGenre);
     }
 
     @Override
     public List<GenreDTO> getAllActiveGenresWithSubGenres() {
-        return List.of();
+        List<Genre> topLevelGenres = genreRepository.findByParentGenreIsNullAndActiveTrueOrderByDisplayOrderAsc();
+        return genreMapper.toDTOList(topLevelGenres);
     }
 
     @Override
     public List<GenreDTO> getTopLevelGenres() {
-        return List.of();
+        List<Genre> topLevelGenres = genreRepository.findByParentGenreIsNullAndActiveTrueOrderByDisplayOrderAsc();
+        return genreMapper.toDTOList(topLevelGenres);
     }
 
     @Override
     public long getTotalActiveGenres() {
-        return 0;
+        return genreRepository.countByActiveTrue();
     }
 
     @Override

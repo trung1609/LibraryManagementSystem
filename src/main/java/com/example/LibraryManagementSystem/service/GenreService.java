@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.service;
 
+import com.example.LibraryManagementSystem.exception.GenreException;
 import com.example.LibraryManagementSystem.mapper.GenreMapper;
 import com.example.LibraryManagementSystem.payload.dto.GenreDTO;
 import org.springframework.data.domain.Page;
@@ -15,9 +16,9 @@ public interface GenreService {
 
     GenreDTO getGenreById(Long genreId) throws Exception;
 
-    GenreDTO updateGenre(Long genreId, GenreDTO genre);
+    GenreDTO updateGenre(Long genreId, GenreDTO genre) throws GenreException;
 
-    void deleteGenre(Long genreId);
+    void deleteGenre(Long genreId) throws GenreException;
 
     void hardDeleteGenre(Long genreId);
 

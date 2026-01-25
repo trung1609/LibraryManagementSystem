@@ -69,7 +69,7 @@ public class GenreController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content)
     })
-    public ResponseEntity<?> getGenreById(@RequestParam("genreId") long genreId) throws Exception {
+    public ResponseEntity<?> getGenreById(@PathVariable("genreId") long genreId) throws Exception {
         GenreDTO genreDTO = genreService.getGenreById(genreId);
         return ResponseEntity.ok(genreDTO);
     }
@@ -89,7 +89,7 @@ public class GenreController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content)
     })
-    public ResponseEntity<?> updateGenre(@RequestParam("genreId") long genreId,
+    public ResponseEntity<?> updateGenre(@PathVariable("genreId") long genreId,
                                          @RequestBody GenreDTO genre) throws Exception {
         GenreDTO genreDTO = genreService.updateGenre(genreId, genre);
         return ResponseEntity.ok(genreDTO);
@@ -108,7 +108,7 @@ public class GenreController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content)
     })
-    public ResponseEntity<?> deleteGenre(@RequestParam("genreId") long genreId) throws Exception {
+    public ResponseEntity<?> deleteGenre(@PathVariable("genreId") long genreId) throws Exception {
         genreService.deleteGenre(genreId);
         com.example.LibraryManagementSystem.payload.response.ApiResponse apiResponse = new com.example.LibraryManagementSystem.payload.response.ApiResponse("Genre deleted successfully - soft deleted", true);
         return ResponseEntity.ok(apiResponse);
@@ -127,7 +127,7 @@ public class GenreController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content)
     })
-    public ResponseEntity<?> hardDeleteGenre(@RequestParam("genreId") long genreId) {
+    public ResponseEntity<?> hardDeleteGenre(@PathVariable("genreId") long genreId) {
         genreService.hardDeleteGenre(genreId);
         com.example.LibraryManagementSystem.payload.response.ApiResponse apiResponse = new com.example.LibraryManagementSystem.payload.response.ApiResponse("Genre hard deleted successfully", true);
         return ResponseEntity.ok(apiResponse);

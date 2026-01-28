@@ -120,10 +120,18 @@ public class BookServiceImpl implements BookService {
         size = Math.min(size, 10);
         size = Math.max(size, 1);
 
+        // Convert Java property names to database column names for native queries
+        String dbColumnName = convertToDbColumnName(sortBy);
+
         Sort sort = sortDirection.equalsIgnoreCase("asc")
-                ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+                ? Sort.by(dbColumnName).ascending() : Sort.by(dbColumnName).descending();
         return PageRequest.of(page, size, sort);
 
+    }
+
+    private String convertToDbColumnName(String javaPropertyName) {
+        // Convert camelCase to snake_case for database columns
+        return javaPropertyName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
     }
 
     private PageResponse<BookDTO> convertToPageResponse(Page<Book> books) {

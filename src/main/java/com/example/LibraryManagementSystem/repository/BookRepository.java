@@ -14,17 +14,18 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     boolean existsByIsbn(String isbn);
 
-    @Query(
-            "select b from Book b where" +
-                    ":searchTerm is null or " +
-                    "lower(b.title) like lower(concat('%', :searchTerm, '%')) or " +
-                    "lower(b.author) like lower(concat('%', :searchTerm, '%')) or " +
-                    "lower(b.isbn) like lower(concat('%', :searchTerm, '%')) or " +
-                    "(:genreId is null or b.genre.id = :genreId) and " +
-                    "(:availableOnly == false or b.availableCopies > 0) and " +
-                    "b.active=true"
-    )
-    Page<Book> searchBooksWithFilters(
+    @Query("""
+            SELECT b FROM Book b
+            WHERE
+                (:searchTerm is null or
+                 lower(b.title) like lower(concat('%', :searchTerm, '%')) or
+                 lower(b.author) like lower(concat('%', :searchTerm, '%')) or
+                 lower(b.isbn) like lower(concat('%', :searchTerm, '%')))
+                and (:genreId is null or b.genre.id = :genreId)
+                and (:availableOnly = false or b.availableCopies > 0)
+                and b.active = true
+            """)
+    Page<Book> searchBooksWithFiltersNative(
             @Param("searchTerm") String searchTerm,
             @Param("genreId") Long genreId,
             @Param("availableOnly") boolean availableOnly,

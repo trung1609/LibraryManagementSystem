@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
         authResponse.setMessage("Welcome back " + users.getFullName());
         authResponse.setJwt(token);
         authResponse.setUsersDTO(UserMapper.toDTO(users));
-        return null;
+        return authResponse;
     }
 
     private Authentication authenticate(String username, String password) throws UserException {
@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse signUp(UsersDTO request) throws UserException {
         Users users = usersRepository.findByEmail(request.getEmail());
 
-        if (users == null) {
+        if (users != null) {
             throw new UserException("Email is already registered");
         }
 
@@ -112,19 +112,50 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         passwordResetTokenRepository.save(passwordResetToken);
-        String resetLink = frontendUrl + token;
-        String subject = "Password Reset Request";
-        String body = "You requested to reset your password. Use this link (valid 5 minutes): " + resetLink;
+        String resetLink = frontendUrl + "/reset-password?token=" + token;
+        String subject = "Password Reset Request - Library Management System";
+        String body = buildPasswordResetEmail(users.getFullName(), resetLink);
 
         emailService.sendEmail(users.getEmail(), subject, body);
     }
 
+    private String buildPasswordResetEmail(String fullName, String resetLink) {
+        return """
+                <html>
+                <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                        <h2 style="color: #2c5282;">Password Reset Request</h2>
+                        <p>Hello <strong>%s</strong>,</p>
+                        <p>We received a request to reset your password for your Library Management System account.</p>
+                        <p>Click the button below to reset your password:</p>
+                        <div style="text-align: center; margin: 30px 0;">
+                            <a href="%s" style="background-color: #3182ce; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                                Reset Password
+                            </a>
+                        </div>
+                        <p>Or copy and paste this link into your browser:</p>
+                        <p style="word-break: break-all; color: #3182ce;">%s</p>
+                        <p><strong>This link will expire in 5 minutes.</strong></p>
+                        <p>If you didn't request a password reset, please ignore this email or contact support if you have concerns.</p>
+                        <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+                        <p style="color: #666; font-size: 12px;">This is an automated message from Library Management System. Please do not reply to this email.</p>
+                    </div>
+                </body>
+                </html>
+                """.formatted(fullName, resetLink, resetLink);
+    }
+
     @Transactional
     public void resetPassword(String token, String newPassword) throws UserException {
-        PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token).orElseThrow(() -> new UserException("Token not valid"));
+        if (token == null || token.startsWith("eyJ")) {
+            throw new UserException("Invalid token format. Please use the reset link from your email.");
+        }
+
+        PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token)
+                .orElseThrow(() -> new UserException("Token not valid or has already been used"));
         if (resetToken.isExpired()) {
             passwordResetTokenRepository.delete(resetToken);
-            throw new UserException("Token has expired");
+            throw new UserException("Token has expired. Please request a new password reset.");
         }
 
         Users users = resetToken.getUser();

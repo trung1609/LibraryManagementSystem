@@ -14,15 +14,16 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: trung8d2005@gmail.com
-    password: Trung1609
+    password: ${MAIL_PASSWORD:zmfx fzbe zdms ydle}
     properties:
-        mail:
-          SMTP:
+      mail:
+        smtp:
           auth: true
-          STARTTLS:
+          starttls:
             enable: true
-          connection timeout: 5000
-          write timeout: 5000
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
 
 springdoc:
   api-docs:

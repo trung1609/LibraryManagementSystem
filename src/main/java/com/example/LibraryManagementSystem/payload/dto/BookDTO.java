@@ -1,13 +1,7 @@
 package com.example.LibraryManagementSystem.payload.dto;
 
-import com.example.LibraryManagementSystem.model.Genre;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -66,7 +60,7 @@ public class BookDTO {
     @Digits(integer = 8, fraction = 2, message = "Price must have at most 8 integer digits and 2 fractions")
     private BigDecimal price;
 
-    @Size(max = 500 , message = "Image URL must not exceed 500 characters")
+    @Size(max = 500, message = "Image URL must not exceed 500 characters")
     private String coverImageUrl;
 
     private Boolean alreadyHaveLoan;

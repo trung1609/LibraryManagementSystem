@@ -1,10 +1,7 @@
 package com.example.LibraryManagementSystem.service;
 
 import com.example.LibraryManagementSystem.exception.GenreException;
-import com.example.LibraryManagementSystem.mapper.GenreMapper;
 import com.example.LibraryManagementSystem.payload.dto.GenreDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

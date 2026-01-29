@@ -62,7 +62,7 @@ public class GenreMapper {
     }
 
     public void updateEntityFromDto(GenreDTO genreDTO, Genre updatedGenre) {
-        if(genreDTO == null) {
+        if (genreDTO == null) {
             return;
         }
 
@@ -70,16 +70,16 @@ public class GenreMapper {
         updatedGenre.setName(genreDTO.getName());
         updatedGenre.setDescription(genreDTO.getDescription());
         updatedGenre.setDisplayOrder(genreDTO.getDisplayOrder() != null ? genreDTO.getDisplayOrder() : 0);
-        if(genreDTO.getActive() != null) {
+        if (genreDTO.getActive() != null) {
             updatedGenre.setActive(genreDTO.getActive());
         }
 
-        if(genreDTO.getParentGenreId() != null) {
+        if (genreDTO.getParentGenreId() != null) {
             genreRepository.findById(genreDTO.getParentGenreId()).ifPresent(updatedGenre::setParentGenre);
         }
     }
 
-    public List<GenreDTO> toDTOList(List<Genre> genreList){
+    public List<GenreDTO> toDTOList(List<Genre> genreList) {
         return genreList.stream().map(this::toDto).toList();
     }
 

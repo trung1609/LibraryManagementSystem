@@ -175,7 +175,7 @@ public class BookController {
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDir
-    ){
+    ) {
         BookSearchRequest searchRequest = new BookSearchRequest();
         searchRequest.setGenreId(genreId);
         searchRequest.setAvailableOnly(availableOnly);
@@ -201,7 +201,7 @@ public class BookController {
     })
     public ResponseEntity<PageResponse<BookDTO>> advancedSearch(
             @RequestBody BookSearchRequest searchRequest
-            ){
+    ) {
         PageResponse<BookDTO> response = bookService.searchBooksWithFilters(searchRequest);
         return ResponseEntity.ok(response);
     }
@@ -217,7 +217,7 @@ public class BookController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content)
     })
-    public ResponseEntity<BookStatsResponse> getBookStats(){
+    public ResponseEntity<BookStatsResponse> getBookStats() {
         long totalActive = bookService.getTotalActiveBooks();
         long totalAvailable = bookService.getTotalAvailableBooks();
 
@@ -225,11 +225,11 @@ public class BookController {
         return ResponseEntity.ok(statsResponse);
     }
 
-    public static class BookStatsResponse{
+    public static class BookStatsResponse {
         public long totalActiveBooks;
         public long totalAvailableBooks;
 
-        public BookStatsResponse(long totalActiveBooks, long totalAvailableBooks){
+        public BookStatsResponse(long totalActiveBooks, long totalAvailableBooks) {
             this.totalActiveBooks = totalActiveBooks;
             this.totalAvailableBooks = totalAvailableBooks;
         }

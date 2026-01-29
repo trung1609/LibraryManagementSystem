@@ -21,6 +21,7 @@ public interface BookService {
     void deleteBook(Long id);
 
     void hardDeleteBook(Long bookId);
+
     PageResponse<BookDTO> searchBooksWithFilters(
             BookSearchRequest searchRequest
     );

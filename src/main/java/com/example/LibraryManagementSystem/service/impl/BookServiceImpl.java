@@ -139,7 +139,7 @@ public class BookServiceImpl implements BookService {
                 .stream()
                 .map(bookMapper::toDTO)
                 .toList();
-        return new PageResponse<>(bookDTOS,books.getNumber(),
+        return new PageResponse<>(bookDTOS, books.getNumber(),
                 books.getSize(),
                 books.getTotalElements(),
                 books.getTotalPages(),

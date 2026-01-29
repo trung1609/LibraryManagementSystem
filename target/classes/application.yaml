@@ -10,6 +10,19 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: trung8d2005@gmail.com
+    password: Trung1609
+    properties:
+        mail:
+          SMTP:
+          auth: true
+          STARTTLS:
+            enable: true
+          connection timeout: 5000
+          write timeout: 5000
 
 springdoc:
   api-docs:
@@ -22,4 +35,5 @@ springdoc:
 
 openapi:
   dev-url: http://localhost:8080
+
 

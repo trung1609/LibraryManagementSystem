@@ -77,7 +77,7 @@ public class BookMapper {
         book.setTitle(bookDTO.getTitle());
         book.setAuthor(bookDTO.getAuthor());
 
-        if(bookDTO.getGenreId() != null) {
+        if (bookDTO.getGenreId() != null) {
             Genre genre = genreRepository.findById(bookDTO.getGenreId())
                     .orElseThrow(() -> new BookException("Genre not found with id: " + bookDTO.getGenreId()));
             book.setGenre(genre);
@@ -92,7 +92,7 @@ public class BookMapper {
         book.setAvailableCopies(bookDTO.getAvailableCopies());
         book.setPrice(bookDTO.getPrice());
         book.setCoverImageUrl(bookDTO.getCoverImageUrl());
-        if(bookDTO.getActive() != null) {
+        if (bookDTO.getActive() != null) {
             book.setActive(bookDTO.getActive());
         }
     }

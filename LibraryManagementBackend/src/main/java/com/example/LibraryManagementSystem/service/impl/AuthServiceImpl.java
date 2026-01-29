@@ -98,7 +98,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     public void createPasswordResetToken(String email) throws UserException {
-        String frontendUrl = "";
+        String frontendUrl = "http://localhost:5173";
         Users users = usersRepository.findByEmail(email);
         if (users == null) {
             throw new UserException("User not found with email: " + email);

@@ -67,6 +67,9 @@ public class SubscriptionPlanMapper {
         if (dto == null || entity == null) {
             return;
         }
+        if (dto.getPlanCode() != null) {
+            entity.setPlanCode(dto.getPlanCode());
+        }
 
         if (dto.getName() != null) {
             entity.setName(dto.getName());

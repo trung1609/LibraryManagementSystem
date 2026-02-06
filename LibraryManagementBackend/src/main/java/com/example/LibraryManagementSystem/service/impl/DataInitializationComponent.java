@@ -18,17 +18,18 @@ public class DataInitializationComponent implements CommandLineRunner {
     public void run(String... args) throws Exception {
         initializeAdminUser();
     }
-    private void initializeAdminUser(){
+
+    private void initializeAdminUser() {
         String adminEmail = "admin@gmail.com";
         String adminPassword = "123456";
-        if(userRepository.findByEmail(adminEmail) == null){
+        if (userRepository.findByEmail(adminEmail) == null) {
             Users users = Users.builder()
                     .password(passwordEncoder.encode(adminPassword))
                     .email(adminEmail)
                     .fullName("Admin")
                     .role(UserRole.ROLE_ADMIN)
                     .build();
-            Users admin  = userRepository.save(users);
+            Users admin = userRepository.save(users);
         }
     }
 }

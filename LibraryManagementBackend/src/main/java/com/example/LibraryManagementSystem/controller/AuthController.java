@@ -10,7 +10,6 @@ import com.example.LibraryManagementSystem.payload.response.AuthResponse;
 import com.example.LibraryManagementSystem.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

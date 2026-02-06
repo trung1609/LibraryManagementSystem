@@ -3,7 +3,6 @@ package com.example.LibraryManagementSystem.controller;
 import com.example.LibraryManagementSystem.exception.BookException;
 import com.example.LibraryManagementSystem.payload.dto.BookDTO;
 import com.example.LibraryManagementSystem.payload.request.BookSearchRequest;
-import com.example.LibraryManagementSystem.payload.response.ApiResponse;
 import com.example.LibraryManagementSystem.payload.response.PageResponse;
 import com.example.LibraryManagementSystem.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,12 +10,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

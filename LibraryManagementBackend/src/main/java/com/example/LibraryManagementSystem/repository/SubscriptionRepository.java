@@ -16,13 +16,20 @@ public interface SubscriptionRepository extends JpaRepository <Subscription, Lon
     @Query("select s from Subscription s where s.users.id = :user_id " +
             "and s.isActive = true " +
             "and s.startDate <= :today " +
-            "and s.endDate >= :today ")
-    Optional<Subscription> findActiveSubscriptionByUserId(@Param("user_id") Long userId,
-                                                          @Param("today")LocalDate today);
+            "and s.endDate >= :today " +
+            "order by s.endDate desc")
+    List<Subscription> findActiveSubscriptionsByUserId(@Param("user_id") Long userId,
+                                                       @Param("today")LocalDate today);
 
     @Query("select s from Subscription s where s.isActive = true " +
             "and s.endDate < :today ")
     List<Subscription> findExpiredActiveSubscriptions(
+            @Param("today")LocalDate today
+    );
+
+    @Query("select s from Subscription s where s.isActive = true " +
+            "and (s.endDate < :today or s.startDate > :today)")
+    List<Subscription> findInvalidActiveSubscriptions(
             @Param("today")LocalDate today
     );
 }

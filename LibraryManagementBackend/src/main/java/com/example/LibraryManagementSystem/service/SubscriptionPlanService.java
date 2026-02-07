@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.service;
 
+import com.example.LibraryManagementSystem.model.SubscriptionPlan;
 import com.example.LibraryManagementSystem.payload.dto.SubscriptionPlanDTO;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface SubscriptionPlanService {
     void deleteSubscriptionPlan(Long id);
 
     List<SubscriptionPlanDTO> getAllSubscriptionPlans();
-
+    SubscriptionPlan getBySubscriptionPlanCode(String subscriptionPlanCode);
 }

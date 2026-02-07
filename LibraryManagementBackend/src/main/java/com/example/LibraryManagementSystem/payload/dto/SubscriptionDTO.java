@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 public class SubscriptionDTO {
     private Long id;
 
-    @NotNull(message = "User Id cannot be null")
     private Long userId;
 
     private String userName;

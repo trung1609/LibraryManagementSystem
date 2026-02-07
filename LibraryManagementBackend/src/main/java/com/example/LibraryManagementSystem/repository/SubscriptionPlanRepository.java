@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubscriptionPlanRepository extends JpaRepository<SubscriptionPlan, Long> {
     Boolean existsAllByPlanCode(String planCode);
+
+    SubscriptionPlan findByPlanCode(String planCode);
 }

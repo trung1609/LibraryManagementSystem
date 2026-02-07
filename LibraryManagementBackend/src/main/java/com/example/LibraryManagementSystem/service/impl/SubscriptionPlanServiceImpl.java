@@ -58,4 +58,13 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
                 .map(subscriptionPlanMapper::toDto)
                 .toList();
     }
+
+    @Override
+    public SubscriptionPlan getBySubscriptionPlanCode(String subscriptionPlanCode) {
+        SubscriptionPlan plan = subscriptionPlanRepository.findByPlanCode(subscriptionPlanCode);
+        if (plan == null) {
+            throw new RuntimeException("Subscription Plan not found with plan code: " + subscriptionPlanCode);
+        }
+        return plan;
+    }
 }

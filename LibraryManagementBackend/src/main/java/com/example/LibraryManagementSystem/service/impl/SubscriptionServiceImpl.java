@@ -1,15 +1,21 @@
 package com.example.LibraryManagementSystem.service.impl;
 
+import com.example.LibraryManagementSystem.domain.PaymentGateway;
+import com.example.LibraryManagementSystem.domain.PaymentType;
 import com.example.LibraryManagementSystem.exception.SubscriptionException;
 import com.example.LibraryManagementSystem.mapper.SubscriptionMapper;
 import com.example.LibraryManagementSystem.model.Subscription;
 import com.example.LibraryManagementSystem.model.SubscriptionPlan;
 import com.example.LibraryManagementSystem.model.Users;
 import com.example.LibraryManagementSystem.payload.dto.SubscriptionDTO;
+import com.example.LibraryManagementSystem.payload.request.PaymentInitiateRequest;
+import com.example.LibraryManagementSystem.payload.response.PaymentInitiateResponse;
 import com.example.LibraryManagementSystem.repository.SubscriptionPlanRepository;
 import com.example.LibraryManagementSystem.repository.SubscriptionRepository;
+import com.example.LibraryManagementSystem.service.PaymentService;
 import com.example.LibraryManagementSystem.service.SubscriptionService;
 import com.example.LibraryManagementSystem.service.UserService;
+import com.razorpay.RazorpayException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,9 +31,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionMapper subscriptionMapper;
     private final UserService userService;
     private final SubscriptionPlanRepository subscriptionPlanRepository;
+    private final PaymentService paymentService;
 
     @Override
-    public SubscriptionDTO subscribe(SubscriptionDTO subscriptionDTO) throws SubscriptionException {
+    public PaymentInitiateResponse subscribe(SubscriptionDTO subscriptionDTO) throws SubscriptionException, RazorpayException {
         Users users = userService.getCurrentUser();
 
         SubscriptionPlan plan = subscriptionPlanRepository.findById(subscriptionDTO.getPlanId()).orElseThrow(() -> new RuntimeException("Plan not found with id: " + subscriptionDTO.getPlanId()));
@@ -37,7 +44,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setIsActive(false);
         Subscription savedSubscription =  subscriptionRepository.save(subscription);
 
-        return subscriptionMapper.toDto(savedSubscription);
+        PaymentInitiateRequest paymentInitiateRequest = PaymentInitiateRequest.builder()
+                .userId(users.getId())
+                .subscriptionId(subscription.getId())
+                .paymentType(PaymentType.MEMBERSHIP)
+                .gateway(PaymentGateway.RAZORPAY)
+                .amount(subscription.getPrice())
+                .description("Library Subscription - " + plan.getName())
+                .build();
+
+        return paymentService.initiatePayment(paymentInitiateRequest);
     }
 
     @Override

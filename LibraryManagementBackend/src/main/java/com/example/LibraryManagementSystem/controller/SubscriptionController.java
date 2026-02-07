@@ -3,7 +3,9 @@ package com.example.LibraryManagementSystem.controller;
 import com.example.LibraryManagementSystem.exception.SubscriptionException;
 import com.example.LibraryManagementSystem.payload.dto.SubscriptionDTO;
 import com.example.LibraryManagementSystem.payload.response.ApiResponse;
+import com.example.LibraryManagementSystem.payload.response.PaymentInitiateResponse;
 import com.example.LibraryManagementSystem.service.SubscriptionService;
+import com.razorpay.RazorpayException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +23,7 @@ public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
     @PostMapping("/subscribe")
-    public ResponseEntity<SubscriptionDTO> subscribe(@Valid @RequestBody SubscriptionDTO subscriptionDTO) throws SubscriptionException {
+    public ResponseEntity<PaymentInitiateResponse> subscribe(@Valid @RequestBody SubscriptionDTO subscriptionDTO) throws SubscriptionException, RazorpayException {
         return ResponseEntity.ok(subscriptionService.subscribe(subscriptionDTO));
     }
 

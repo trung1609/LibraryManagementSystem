@@ -9,4 +9,6 @@ public interface UserService {
     public Users getCurrentUser();
 
     List<UsersDTO> getAllUsers();
+
+    Users findById(Long id);
 }

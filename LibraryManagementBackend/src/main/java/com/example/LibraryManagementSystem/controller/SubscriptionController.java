@@ -43,7 +43,7 @@ public class SubscriptionController {
     }
 
     @GetMapping("/user/active")
-    public ResponseEntity<List<SubscriptionDTO>> getUsersActiveSubscriptions(
+    public ResponseEntity<SubscriptionDTO> getUsersActiveSubscriptions(
             @RequestParam(required = false) Long userId)
             throws SubscriptionException {
         return ResponseEntity.ok(subscriptionService.getUsersActiveSubscriptions(userId));

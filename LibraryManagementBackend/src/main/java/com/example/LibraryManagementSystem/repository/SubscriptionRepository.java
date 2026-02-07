@@ -18,7 +18,7 @@ public interface SubscriptionRepository extends JpaRepository <Subscription, Lon
             "and s.startDate <= :today " +
             "and s.endDate >= :today " +
             "order by s.endDate desc")
-    List<Subscription> findActiveSubscriptionsByUserId(@Param("user_id") Long userId,
+    Subscription findActiveSubscriptionsByUserId(@Param("user_id") Long userId,
                                                        @Param("today")LocalDate today);
 
     @Query("select s from Subscription s where s.isActive = true " +

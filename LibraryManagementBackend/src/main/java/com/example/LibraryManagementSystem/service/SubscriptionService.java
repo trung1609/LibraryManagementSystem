@@ -12,7 +12,7 @@ public interface SubscriptionService {
 
     PaymentInitiateResponse subscribe(SubscriptionDTO subscriptionDTO) throws SubscriptionException, RazorpayException;
 
-    List<SubscriptionDTO> getUsersActiveSubscriptions(Long userId) throws SubscriptionException;
+    SubscriptionDTO getUsersActiveSubscriptions(Long userId) throws SubscriptionException;
 
     SubscriptionDTO cancelSubscription(Long subscriptionId, String reason) throws SubscriptionException;
 

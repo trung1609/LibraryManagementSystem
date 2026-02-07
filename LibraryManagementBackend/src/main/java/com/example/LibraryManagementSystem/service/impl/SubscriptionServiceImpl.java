@@ -57,14 +57,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public List<SubscriptionDTO> getUsersActiveSubscriptions(Long userId) throws SubscriptionException {
+    public SubscriptionDTO getUsersActiveSubscriptions(Long userId) throws SubscriptionException {
         Users users = userService.getCurrentUser();
-        List<Subscription> subscriptions = subscriptionRepository
+        Subscription subscriptions = subscriptionRepository
                 .findActiveSubscriptionsByUserId(users.getId(), LocalDate.now());
-        if (subscriptions.isEmpty()) {
-            throw new SubscriptionException("No active subscription found for user with id: " + users.getId());
+        if (subscriptions == null){
+            throw new SubscriptionException("No active subscriptions found");
         }
-        return subscriptionMapper.toDTOList(subscriptions);
+        return subscriptionMapper.toDto(subscriptions);
     }
 
     @Override

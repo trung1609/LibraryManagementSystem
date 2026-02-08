@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ReservationSearchRequest {
+    private Long userId;
     private Long bookId;
 
     private ReservationStatus status;

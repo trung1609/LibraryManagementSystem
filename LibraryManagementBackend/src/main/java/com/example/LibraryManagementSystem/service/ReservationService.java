@@ -1,5 +1,7 @@
 package com.example.LibraryManagementSystem.service;
 
+import com.example.LibraryManagementSystem.exception.BookException;
+import com.example.LibraryManagementSystem.exception.SubscriptionException;
 import com.example.LibraryManagementSystem.payload.dto.ReservationDTO;
 import com.example.LibraryManagementSystem.payload.request.ReservationRequest;
 import com.example.LibraryManagementSystem.payload.request.ReservationSearchRequest;
@@ -12,7 +14,7 @@ public interface ReservationService {
 
     ReservationDTO cancelReservation(Long reservationId);
 
-    ReservationDTO fulfillReservation(Long reservationId);
+    ReservationDTO fulfillReservation(Long reservationId) throws SubscriptionException, BookException;
 
     PageResponse<ReservationDTO> searchReservations(ReservationSearchRequest request);
 

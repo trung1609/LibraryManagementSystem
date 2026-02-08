@@ -28,6 +28,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -96,6 +97,7 @@ public class BookLoanServiceImpl implements BookLoanService {
                 .maxRenewals(2)
                 .notes(request.getNotes())
                 .overdueDays(0)
+                .isOverdue(false)
                 .build();
 
         //9. Update book-available copies
@@ -122,7 +124,7 @@ public class BookLoanServiceImpl implements BookLoanService {
 
         //4. set status
         BookLoanStatus condition = request.getCondition();
-        if (condition == null) {
+        if (condition != null) {
             bookLoan.setStatus(BookLoanStatus.RETURNED);
         }
 
@@ -193,20 +195,20 @@ public class BookLoanServiceImpl implements BookLoanService {
         );
         Page<BookLoan> bookLoanPage;
 
-        if (Boolean.TRUE.equals(request.getOverdueOnly())){
+        if (Boolean.TRUE.equals(request.getOverdueOnly())) {
             bookLoanPage = bookLoanRepository.findOverdueBookLoans(LocalDate.now(), pageable);
-        }else if (request.getUserId() != null){
+        } else if (request.getUserId() != null) {
             bookLoanPage = bookLoanRepository.findByUsersId(request.getUserId(), pageable);
         } else if (request.getBookId() != null) {
             bookLoanPage = bookLoanRepository.findByBookId(request.getBookId(), pageable);
-        } else if (request.getStatus() != null){
+        } else if (request.getStatus() != null) {
             bookLoanPage = bookLoanRepository.findByStatus(request.getStatus(), pageable);
         } else if (request.getStartDate() != null && request.getEndDate() != null) {
             bookLoanPage = bookLoanRepository.findBookLoansByDateRange(
                     request.getStartDate(),
                     request.getEndDate(),
                     pageable);
-        }else {
+        } else {
             bookLoanPage = bookLoanRepository.findAll(pageable);
         }
 
@@ -215,7 +217,22 @@ public class BookLoanServiceImpl implements BookLoanService {
 
     @Override
     public int updateOverdueBookLoan() {
-        return 0;
+        Pageable pageable = PageRequest.of(0, 1000);
+        Page<BookLoan> overduePage = bookLoanRepository.findOverdueBookLoans(LocalDate.now(), pageable);
+
+        int updatedCount = 0;
+        for (BookLoan bookLoan : overduePage.getContent()) {
+            if (bookLoan.getStatus() == BookLoanStatus.CHECKED_OUT) {
+                bookLoan.setStatus(BookLoanStatus.OVERDUE);
+                bookLoan.setIsOverdue(true);
+                int overdueDays = calculateOverdueDate(bookLoan.getDueDate(), LocalDate.now());
+                bookLoan.setOverdueDays(overdueDays);
+
+                bookLoanRepository.save(bookLoan);
+                updatedCount++;
+            }
+        }
+        return updatedCount;
     }
 
     private Pageable createPageable(int page, int size, String sortBy, String sortDirection) {
@@ -244,5 +261,12 @@ public class BookLoanServiceImpl implements BookLoanService {
                 bookLoanDTOPage.isFirst(),
                 bookLoanDTOPage.isEmpty()
         );
+    }
+
+    public int calculateOverdueDate(LocalDate dueDate, LocalDate today) {
+        if (today.isBefore(dueDate) || today.isEqual(dueDate)) {
+            return 0;
+        }
+        return (int) ChronoUnit.DAYS.between(dueDate, today);
     }
 }

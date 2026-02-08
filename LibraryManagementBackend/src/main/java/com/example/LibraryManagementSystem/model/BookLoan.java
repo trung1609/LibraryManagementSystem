@@ -43,8 +43,7 @@ public class BookLoan {
 
     @Column(nullable = false)
     private LocalDate dueDate;
-
-    @Column(nullable = true)
+    
     private LocalDate returnDate;
 
     @Column(nullable = false)
@@ -80,4 +79,6 @@ public class BookLoan {
                 && !isOverdue
                 && renewalCount < maxRenewals;
     }
+
+
 }

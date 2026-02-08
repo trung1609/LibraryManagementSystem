@@ -90,16 +90,6 @@ public class BookController {
     }
 
     @PostMapping("/search")
-    @Operation(
-            summary = "Advanced search for books",
-            description = "Perform advanced search with multiple criteria including search term, genre, and availability filters."
-    )
-    @ApiResponses({
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Search completed successfully",
-                    content = @Content(schema = @Schema(implementation = PageResponse.class))),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = @Content)
-    })
     public ResponseEntity<PageResponse<BookDTO>> advancedSearch(
             @RequestBody BookSearchRequest searchRequest
     ) {

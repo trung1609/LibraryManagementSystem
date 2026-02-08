@@ -11,11 +11,11 @@ import com.example.LibraryManagementSystem.payload.request.RenewalRequest;
 import com.example.LibraryManagementSystem.payload.response.PageResponse;
 
 public interface BookLoanService {
-    BookLoanDTO checkOutBook(CheckoutRequest request);
+    BookLoanDTO checkOutBook(CheckoutRequest request) throws SubscriptionException, BookException;
 
     BookLoanDTO checkoutBookForUsers(Long userId, CheckoutRequest request) throws SubscriptionException, BookException;
 
-    BookLoanDTO checkinBook(CheckinRequest request);
+    BookLoanDTO checkinBook(CheckinRequest request) throws BookException;
 
     BookLoanDTO renewCheckout(RenewalRequest request);
 

@@ -71,4 +71,20 @@ public class Fine {
     @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public void applyPayment(Long amount){
+        if (amount == null || amount<=0){
+            throw new IllegalArgumentException("Amount cannot be null or negative");
+        }
+
+        this.status = FineStatus.PAID;
+        this.paidAt = LocalDateTime.now();
+    }
+
+    public void waive(Users admin, String reason){
+        this.status = FineStatus.WAIVED;
+        this.waivedBy = admin;
+        this.waivedAt = LocalDateTime.now();
+        this.waiverReason = reason;
+    }
 }

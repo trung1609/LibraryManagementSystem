@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FineRepository extends JpaRepository<Fine, Long> {
 
@@ -24,4 +26,8 @@ public interface FineRepository extends JpaRepository<Fine, Long> {
             @Param("type") FineType type,
             Pageable pageable
     );
+
+    List<Fine> findByUsersId(Long userId);
+
+    List<Fine> findByUsersIdAndType(Long userId, FineType type);
 }

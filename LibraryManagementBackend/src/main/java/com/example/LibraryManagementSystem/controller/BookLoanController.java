@@ -60,7 +60,7 @@ public class BookLoanController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<?> getAllBookLoans(
             @RequestBody BookLoanSearchRequest request
     ){

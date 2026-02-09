@@ -34,10 +34,10 @@ LibraryManagement/
 
 | Công nghệ | Phiên bản | Mô tả |
 |-----------|-----------|-------|
-| Java | 17 | Ngôn ngữ lập trình chính |
-| Spring Boot | 3.2.5 | Framework backend |
-| PostgreSQL | - | Cơ sở dữ liệu |
-| Razorpay | 1.4.8 | Tích hợp thanh toán |
+| Java | 17        | Ngôn ngữ lập trình chính |
+| Spring Boot | 3.2.5     | Framework backend |
+| PostgreSQL | 18.0      | Cơ sở dữ liệu |
+| Razorpay | 1.4.8     | Tích hợp thanh toán |
 
 ### Cấu trúc Backend
 

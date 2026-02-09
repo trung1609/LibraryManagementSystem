@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface BookLoanRepository extends JpaRepository<BookLoan, Long> {
@@ -19,6 +20,9 @@ public interface BookLoanRepository extends JpaRepository<BookLoan, Long> {
     Page<BookLoan> findByStatusAndUsers(BookLoanStatus status, Users users, Pageable pageable);
     Page<BookLoan> findByStatus(BookLoanStatus status, Pageable pageable);
     Page<BookLoan> findByBookId(Long bookId, Pageable pageable);
+    List<BookLoan> findByBookId(Long bookId);
+
+
     @Query("select case when count(bl) > 0 " +
             "then true " +
             "else false end " +

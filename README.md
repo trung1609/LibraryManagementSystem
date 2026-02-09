@@ -36,12 +36,7 @@ LibraryManagement/
 |-----------|-----------|-------|
 | Java | 17 | Ngôn ngữ lập trình chính |
 | Spring Boot | 3.2.5 | Framework backend |
-| Spring Security | - | Xác thực và phân quyền |
-| Spring Data JPA | - | ORM và truy vấn database |
 | PostgreSQL | - | Cơ sở dữ liệu |
-| JWT (jjwt) | 0.13.0 | Token authentication |
-| Lombok | 1.18.32 | Giảm boilerplate code |
-| Swagger/OpenAPI | 2.5.0 | API Documentation |
 | Razorpay | 1.4.8 | Tích hợp thanh toán |
 
 ### Cấu trúc Backend
@@ -106,9 +101,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
-# Swagger UI: http://localhost:8080/swagger-ui.html
-# API Docs: http://localhost:8080/api-docs
 ```
 
 ### Chạy Backend
@@ -132,8 +124,6 @@ mvnw.cmd spring-boot:run
 | Công nghệ | Phiên bản | Mô tả |
 |-----------|-----------|-------|
 | React | 19.2.0 | UI Library |
-| Vite | - | Build tool |
-| React Router DOM | 7.13.0 | Routing |
 | Material UI (MUI) | 7.3.7 | UI Components |
 | Tailwind CSS | 4.1.18 | Utility-first CSS |
 | Axios | 1.13.4 | HTTP Client |
@@ -220,14 +210,6 @@ pnpm dev
 
 ---
 
-## 📖 API Documentation
-
-Sau khi chạy backend, truy cập Swagger UI tại:
-- **Swagger UI**: http://localhost:8080/swagger-ui.html
-- **OpenAPI JSON**: http://localhost:8080/api-docs
-
----
-
 ## 🔐 Bảo mật
 
 - **JWT Authentication**: Token-based authentication
@@ -299,6 +281,5 @@ Mọi đóng góp đều được hoan nghênh! Vui lòng tạo Pull Request ho�
 
 ## 📞 Liên hệ
 
-- **Email**: support@library.com
-- **Website**: https://www.library.com
+- **Email**: trung8d2005@gmail.com
 

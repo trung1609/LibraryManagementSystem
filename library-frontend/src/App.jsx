@@ -15,6 +15,8 @@ function App() {
         <Route path="/my-fines" element={<Dashboard />} />
         <Route path="/subscriptions" element={<Dashboard />} />
         <Route path="/wishlist" element={<Dashboard />} />
+        <Route path="/profile" element={<Dashboard />} />
+        <Route path="/settings" element={<Dashboard />} />
       </Route>
     </Routes>
   );

@@ -20,9 +20,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             SELECT * FROM book b
             WHERE
                 (:searchTerm is null or
-                 lower(b.title) like concat('%', lower(cast(:searchTerm as char)), '%') or
-                 lower(b.author) like concat('%', lower(cast(:searchTerm as char)), '%') or
-                 lower(b.isbn) like concat('%', lower(cast(:searchTerm as char)), '%'))
+                 lower(b.title) like concat('%', lower(cast(:searchTerm as varchar)), '%') or
+                 lower(b.author) like concat('%', lower(cast(:searchTerm as varchar)), '%') or
+                 lower(b.isbn) like concat('%', lower(cast(:searchTerm as varchar)), '%'))
                 and (:genreId is null or b.genre_id = :genreId)
                 and (:availableOnly = false or b.available_copies > 0)
                 and b.active = true
@@ -31,9 +31,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                     SELECT count(*) FROM book b
                     WHERE
                         (:searchTerm is null or
-                         lower(b.title) like concat('%', lower(cast(:searchTerm as char)), '%') or
-                         lower(b.author) like concat('%', lower(cast(:searchTerm as char)), '%') or
-                         lower(b.isbn) like concat('%', lower(cast(:searchTerm as char)), '%'))
+                         lower(b.title) like concat('%', lower(cast(:searchTerm as varchar)), '%') or
+                         lower(b.author) like concat('%', lower(cast(:searchTerm as varchar)), '%') or
+                         lower(b.isbn) like concat('%', lower(cast(:searchTerm as varchar)), '%'))
                         and (:genreId is null or b.genre_id = :genreId)
                         and (:availableOnly = false or b.available_copies > 0)
                         and b.active = true

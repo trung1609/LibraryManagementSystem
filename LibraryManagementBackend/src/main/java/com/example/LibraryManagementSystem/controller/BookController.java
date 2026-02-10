@@ -3,7 +3,6 @@ package com.example.LibraryManagementSystem.controller;
 import com.example.LibraryManagementSystem.exception.BookException;
 import com.example.LibraryManagementSystem.payload.dto.BookDTO;
 import com.example.LibraryManagementSystem.payload.request.BookSearchRequest;
-import com.example.LibraryManagementSystem.payload.response.ApiResponse;
 import com.example.LibraryManagementSystem.payload.response.PageResponse;
 import com.example.LibraryManagementSystem.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,12 +10,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,12 +20,6 @@ import java.util.List;
 @Tag(name = "Book", description = "Book management APIs")
 public class BookController {
     private final BookService bookService;
-
-//    @GetMapping
-//    public ResponseEntity<List<BookDTO>> getAllBooks() {
-//        return ResponseEntity.ok(bookService.getAllBooks());
-//    }
-
 
     @GetMapping("/{id}")
     @Operation(
@@ -100,16 +90,6 @@ public class BookController {
     }
 
     @PostMapping("/search")
-    @Operation(
-            summary = "Advanced search for books",
-            description = "Perform advanced search with multiple criteria including search term, genre, and availability filters."
-    )
-    @ApiResponses({
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Search completed successfully",
-                    content = @Content(schema = @Schema(implementation = PageResponse.class))),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = @Content)
-    })
     public ResponseEntity<PageResponse<BookDTO>> advancedSearch(
             @RequestBody BookSearchRequest searchRequest
     ) {

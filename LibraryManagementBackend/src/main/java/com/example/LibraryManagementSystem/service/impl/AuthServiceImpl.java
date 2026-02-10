@@ -116,7 +116,6 @@ public class AuthServiceImpl implements AuthService {
         String subject = "Password Reset Request - Library Management System";
         String body = buildPasswordResetEmail(users.getFullName(), resetLink);
 
-
         emailService.sendEmail(users.getEmail(), subject, body);
     }
 

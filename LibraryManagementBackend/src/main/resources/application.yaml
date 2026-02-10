@@ -27,11 +27,19 @@ spring:
 
 springdoc:
   api-docs:
-    enabled: true
+    path: /api-docs
   swagger-ui:
+    path: /swagger-ui.html
     enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
 
 openapi:
   dev-url: http://localhost:8080
 
-
+razorpay:
+  key:
+    id: rzp_test_us_SDCzMPsj7h6FBL
+    secret: bpizccJXEGoxX7mLxMPB0SLK
+  callback:
+    base-url: http://localhost:5173

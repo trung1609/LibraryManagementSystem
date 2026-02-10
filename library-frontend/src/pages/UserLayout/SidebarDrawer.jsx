@@ -1,8 +1,22 @@
-import { MenuBook } from "@mui/icons-material";
-import { Avatar, Box, Typography } from "@mui/material";
+import { Dashboard, MenuBook } from "@mui/icons-material";
+import { alpha, Avatar, Box, List, ListItem, ListItemButton, ListItemIcon, Tooltip, Typography } from "@mui/material";
 import React from "react";
+import { navigationItems } from "./NavigationItems";
+import { useLocation, useNavigate } from "react-router";
+
 
 const SidebarDrawer = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isActive = (path) => {
+    if(path == "/"){
+      return location.pathname == "/"
+    }
+    return location.pathname.startsWith(path)
+  }
+  const handleChangePath = (path) => {
+    navigate(path);
+  }
   return (
     <Box
       sx={{
@@ -27,20 +41,27 @@ const SidebarDrawer = () => {
       }}
     >
       <Box sx={{
-        p: 3, display: "flex",
+        p: 3,
+        display: "flex",
         alignItems: "center",
         gap: 2,
         position: "relative",
         zIndex: 1
       }}>
         <Box>
-          <Avatar >
+          <Avatar sx={{
+            width: 48,
+            height: 48,
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            fontWeight: "bold",
+            fontSize: "1.3rem",
+            boxShadow: '0 8px 24px rgba(102, 126, 234, 0.4)'
+          }}>
             <MenuBook />
           </Avatar>
         </Box>
         <Box>
-          <Typography sx={{
-            fontSize: 800,
+          <Typography variant="h6" sx={{
             letterSpacing: 0.5,
             background: "linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%)",
             backgroundClip: "text",
@@ -53,16 +74,72 @@ const SidebarDrawer = () => {
             variant="caption"
             sx={
               {
-                opacity: 0.7,
+                opacity: 0.8,
                 fontWeight: 500,
                 letterSpacing: 1,
                 textTransform: 'uppercase'
               }
             }>
-              Library Hub
+            Library Hub
           </Typography>
         </Box>
       </Box>
+
+      <List>
+        {navigationItems.map((item, index) => {
+          const active = isActive(item.path)
+          return <ListItem key={index}>
+            <Tooltip title={item.description} placement="right">
+              <ListItemButton
+              onClick={()=> handleChangePath(item.path) }
+                sx={{
+                  borderRadius: 2.5,
+                  py: 1.5,
+                  px: 2,
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  position: 'relative',
+                  bgcolor: active
+                    ? 'linear-gradient(135deg, rgba(99,102,241,0.25) 0%, rgba(168, 85,247,0.25) 100%)'
+                    : 'transparent',
+                  border: active ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid transparent',
+                  backdropFilter: active ? 'blur(10px)' : 'none',
+                  '&:hover': {
+                    bgcolor: active
+                      ? alpha('#6366f1', 0.3)
+                      : 'rgba(255,255,255,0.05)',
+                    transform: 'translateX(6px)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                  },
+                  '&:before': active
+                    ? {
+                      content: '""',
+                      position: 'absolute',
+                      left: 0,
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      width: 4,
+                      height: '70%',
+                      borderRadius: '0 4px 4px 0',
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      boxShadow: '0 0 12px rgba(102, 126, 234, 0.6)',
+                    }
+                    : {},
+                }}>
+                  <ListItemIcon
+                  sx={{
+                    minWidth: 48,
+                    color: active ? '#818cf8' : 'rgba(255, 255, 255, 0.7)',
+                    transition: 'all 0.3s ease',
+                  }}>
+                    {item.icon}
+                  </ListItemIcon>
+
+                {item.title}
+              </ListItemButton>
+            </Tooltip>
+          </ListItem>
+        })}
+      </List>
     </Box>
   );
 };

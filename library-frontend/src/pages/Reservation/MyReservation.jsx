@@ -9,18 +9,14 @@ const MyReservation = () => {
   const state = { total: 6, active: 2, available: 1 };
   const [activeTab, setActiveTab] = React.useState(0);
 
-  // Logic lọc reservation theo tab (Dùng useMemo để tối ưu)
   const filteredReservations = useMemo(() => {
     if (activeTab === 1) {
-      // Tab Active (index 1): PENDING hoặc AVAILABLE
       return myReservation.filter(
         (r) => r.status === "PENDING" || r.status === "AVAILABLE",
       );
     } else if (activeTab === 2) {
-      // Tab Completed (index 2): FULFILLED
       return myReservation.filter((r) => r.status === "FULFILLED");
     }
-    // Tab All (index 0)
     return myReservation;
   }, [activeTab]);
 

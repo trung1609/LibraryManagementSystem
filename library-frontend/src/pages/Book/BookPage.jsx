@@ -267,7 +267,7 @@ const BookPage = () => {
           <aside className="lg:w-72 space-y-6">
             <div className="space-y-6">
               <GenreFilter onGenreSelect={handleGenreChange} genres={genres} />
-              <div className="bg-white rounded-xl shadow-md p-4 border border-gray-100">
+              <div className="bg-white rounded-xl shadow-md mt-20 p-4 border border-gray-100">
                 <h3 className="text-lg font-bold text-gray-900 mb-4 pb-3 border-b border-gray-200">
                   Availability
                 </h3>

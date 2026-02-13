@@ -4,6 +4,7 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import UserLayout from "./pages/UserLayout/UserLayout";
 import BookPage from "./pages/Book/BookPage";
+import MyLoan from "./pages/MyLoans/MyLoan";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Route element={<UserLayout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/books" element={<BookPage />} />
-        <Route path="/my-loans" element={<Dashboard />} />
+        <Route path="/my-loans" element={<MyLoan />} />
         <Route path="/my-reservations" element={<Dashboard />} />
         <Route path="/my-fines" element={<Dashboard />} />
         <Route path="/subscriptions" element={<Dashboard />} />

@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 import { Contrast, Menu as MenuIcon, Notifications, Search } from '@mui/icons-material';
 
 
-const drawerWidth = 280;
+const drawerWidth = 240;
 const user = {
     fullName: "Vũ Minh Trung",
     profilePicture: "https://i.etsystatic.com/38592990/r/il/c42b46/4497455633/il_fullxfull.4497455633_3eth.jpg"
@@ -14,7 +14,7 @@ const user = {
 const Navbar = ({ handleDrawerToggle }) => {
     const location = useLocation();
     return (
-        <AppBar position='fixed' sx={{
+        <AppBar position= "fixed" sx={{
             width: { md: `calc(100% - ${drawerWidth}px)` },
             ml: { md: `${drawerWidth}px` },
             bgcolor: "white",

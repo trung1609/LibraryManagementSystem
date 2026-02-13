@@ -16,6 +16,12 @@ import {
 } from "@mui/material";
 import React from "react";
 
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${day}-${month}-${year}`;
+};
+
 const LoanCard = ({ loan }) => {
   return (
     <Card>
@@ -90,7 +96,7 @@ const LoanCard = ({ loan }) => {
                 <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                   <CalendarToday sx={{ fontSize: 14, color: "#667eea" }} />
                   <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                    {loan.checkoutDate}
+                    {formatDate(loan.checkoutDate)}
                   </Typography>
                 </Box>
               </Box>
@@ -105,7 +111,7 @@ const LoanCard = ({ loan }) => {
                 <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                   <CalendarToday sx={{ fontSize: 14, color: "#667eea" }} />
                   <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                    {loan.dueDate}
+                    {formatDate(loan.dueDate)}
                   </Typography>
                 </Box>
               </Box>
@@ -121,7 +127,7 @@ const LoanCard = ({ loan }) => {
                   <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                     <AssignmentReturn sx={{ fontSize: 14, color: "#10B981" }} />
                     <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                      {loan.returnDate}
+                      {formatDate(loan.returnDate)}
                     </Typography>
                   </Box>
                 </Box>
@@ -186,7 +192,6 @@ const LoanCard = ({ loan }) => {
                 transition: "all 0.3s",
               }}
             >
-                {" "}
               Return Book
             </Button>
           )}

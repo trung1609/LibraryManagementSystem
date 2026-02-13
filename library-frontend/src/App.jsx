@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import UserLayout from "./pages/UserLayout/UserLayout";
 import BookPage from "./pages/Book/BookPage";
 import MyLoan from "./pages/MyLoans/MyLoan";
+import MyReservation from "./pages/Reservation/MyReservation";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/books" element={<BookPage />} />
         <Route path="/my-loans" element={<MyLoan />} />
-        <Route path="/my-reservations" element={<Dashboard />} />
+        <Route path="/my-reservations" element={<MyReservation />} />
         <Route path="/my-fines" element={<Dashboard />} />
         <Route path="/subscriptions" element={<Dashboard />} />
         <Route path="/wishlist" element={<Dashboard />} />

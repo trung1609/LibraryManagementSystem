@@ -15,12 +15,9 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { formatDate } from "../UserLayout/formatDate";
 
-const formatDate = (dateString) => {
-  if (!dateString) return "";
-  const [year, month, day] = dateString.split("-");
-  return `${day}-${month}-${year}`;
-};
+
 
 const LoanCard = ({ loan }) => {
   return (
